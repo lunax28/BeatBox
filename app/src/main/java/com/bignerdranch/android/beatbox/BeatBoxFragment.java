@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import java.util.List;
  */
 
 public class BeatBoxFragment extends Fragment {
+
+    private static final String TAG = "BeatBoxFragment";
     private BeatBox mBeatBox;
 
     public static BeatBoxFragment newInstance(){
@@ -55,6 +58,8 @@ public class BeatBoxFragment extends Fragment {
         }
 
         public void bind(Sound sound){
+            Log.d(TAG, "bind called");
+
             mBinding.getViewModel().setSound(sound);
             mBinding.executePendingBindings();
         }
@@ -70,6 +75,8 @@ public class BeatBoxFragment extends Fragment {
 
         @Override
         public SoundHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            Log.d(TAG, "onCreateViewHolder called");
+
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             ListItemSoundBinding binding = DataBindingUtil.inflate(inflater, R.layout.list_item_sound,parent,false);
             return new SoundHolder(binding);
@@ -77,6 +84,7 @@ public class BeatBoxFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(SoundHolder holder, int position) {
+            Log.d(TAG, "onBindViewHolder called");
             Sound sound = mSounds.get(position);
             holder.bind(sound);
 
@@ -84,6 +92,7 @@ public class BeatBoxFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+            Log.d(TAG, "getItemCount called");
             return mSounds.size();
         }
     }
